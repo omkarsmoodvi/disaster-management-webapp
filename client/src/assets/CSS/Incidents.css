@@ -1,173 +1,66 @@
-.section-header{
-    display: block;
+.incident-form-container {
+  width: 100%;
+  max-width: 520px;
+  margin: 32px auto 0 auto;
+  padding: 32px 30px 20px 30px;
+  background: rgba(255,255,255,0.14);
+  border-radius: 8px;
+  box-shadow: 0 3px 24px #2020200d;
 }
 
-
-.incident-table{
-    width: 90%;
-    display:table;
-    margin-left: 30px;
-    margin-top: 20px;
-    margin-bottom: 15px;
-    border-collapse: collapse;
-    
-    border-spacing: 0;
-    border: 1px solid #cece09;
-    text-align: center;
-    tr{
-        width: 100%;
-        border: 1px solid #cece09;
-        background-color: #2ee35e;
-    }
-    tr:hover{
-        background-color: #36f1d2;
-    }
-    
-    th{
-        filter:drop-shadow(1px 1px 1px #9b2828);
-        border: 1px solid #cece09;
-        padding: 8px;
-        background-color: #be6a57d6;
-        
-    }
-    td{
-        border: 1px solid #cece09;
-        padding: 8px;
-        background-color: #f2f2f237;
-    }
+.incident-header {
+  text-align: left;
+  font-size: 2.2rem;
+  color: #141622;
+  margin-bottom: 28px;
+  font-weight: 700;
 }
 
-.loc-icon{
-    width: 35px;
-    height: 35px;
-    margin-left: 10px;
-    margin-right: 10px;
+.incident-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-
-.location-bar{
-    justify-content: center;
-    justify-items: center;
-    display: flex;
-    font-size: large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    background-color:rgb(230, 230, 195);
+.incident-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
 }
 
-.locator{
-    display: inline-flex;
+.incident-label {
+  flex: 0 0 165px;
+  margin-right: 12px;
+  text-align: right;
+  font-weight: 600;
+  color: #262b34;
+  font-size: 1.07rem;
 }
 
-.location-form{
-    border: 1px solid darkkhaki;
-    width: 90%;
-    margin: 20px;
-    margin-left: 5%;
-    /* margin-right: 5%; */
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    .form-item {
-        display: flexbox;
-
-    }
-    font-size: larger;
+.incident-input {
+  flex: 1 1 0;
+  padding: 7px 14px;
+  border-radius: 5px;
+  border: 1px solid #adadad;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fff;
+  box-sizing: border-box;
 }
 
-.location-form .form-item label{
-    margin-right: 5%;
+.incident-submit {
+  font-size: 1.15rem;
+  padding: 6px 30px;
+  margin-top: 7px;
+  border-radius: 8px;
+  background: #44d6ae;
+  border: none;
+  color: #222;
+  font-weight: 700;
+  transition: background 0.18s;
+  cursor: pointer;
 }
-
-.submit-btn{
-    border-radius: 10px;
-    padding: 5px;
-    margin-left: 50%;
+.incident-submit:hover {
+  background: #3ab69a;
 }
-
-button{
-    border-radius: 10px;
-    padding: 5px;
-}
-
-input{
-    border-radius: 5px;
-    height: 25px;
-    margin-top: 10px;
-    font-size: large;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-select{
-    height: 25px;
-    margin-top: 10px;
-    border-radius: 5px;
-}
-
-option{
-    background-color: #be6a57d6;
-    
-}
-
-.alert-box{
-    border: 1px solid red;
-    border-radius: 10px;
-    margin: 10px;
-    padding: 10px;
-    text-align: center;
-    background-color: red;
-}
-
-.alert{
-    color: rgb(24, 81, 24);
-}
-
-
-/* Basic styles for the button */
-.modal-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 10000000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.4); /* Black with opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-    background-color: white;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 60%; /* Could be more or less, depending on screen size */
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-}
-
-/* Close Button */
-.close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-

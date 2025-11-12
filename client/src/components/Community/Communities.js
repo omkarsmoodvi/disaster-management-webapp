@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "../../assets/CSS/Communities.css"
-import { Link,useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const Communities = () => {
-    const navigate = useNavigate();
+  const [communities, setCommunities] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/communities')
+      .then(res => res.json())
+      .then(data => setCommunities(data));
+  }, []);
+
   return (
     <div>
-        <h1 style={{marginLeft:'25px'}}>Here's the current list of communities :</h1>
-        <table style={{
-          display: 'table'
-        }}>
+      <h1 style={{ marginLeft: '25px' }}>Here's the current list of communities :</h1>
+      <table style={{
+        display: 'table'
+      }}>
+        <thead>
           <tr>
             <th>ComID</th>
             <th>Name</th>
@@ -20,37 +29,28 @@ export const Communities = () => {
             <th>Number of Users</th>
             <th>Action</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Quota Movement 2024</td>
-            <td>Bangladesh</td>
-            <td>2024-07-15 7:45:30 PM</td>
-            <td>Others</td>
-            <td style={{ maxWidth : '180px'}} >
-                All the students of Bangladesh are protesting against the Quota system which may turn into a movement 
-                against the Facist Government</td>
-            <td>whole Bangladesh</td>
-            <td>
-                <button className='action-btn' onClick={()=>{
-                    navigate(`/community/${1}`);
+        </thead>
+        <tbody>
+          {communities.map(com => (
+            <tr key={com.ComID}>
+              <td>{com.ComID}</td>
+              <td>{com.name}</td>
+              <td>{com.location}</td>
+              <td>{new Date(com.createdAt).toLocaleString()}</td>
+              <td>{com.type}</td>
+              <td style={{ maxWidth: '180px' }}>{com.details}</td>
+              <td>{com.users ? com.users.length : '-'}</td>
+              <td>
+                <button className='action-btn' onClick={() => {
+                  navigate(`/community/${com.ComID}`);
                 }}>See Insights</button>
-                <button className='action-btn'>Leave</button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Remove the waste</td>
-            <td>Bangladesh</td>
-            <td>2024-07-25 7:45:30 PM</td>
-            <td>Others</td>
-            <td style={{ maxWidth : '180px'}} >
-                A poltics free campus movement all over the country</td>
-            <td>whole Bangladesh</td>
-            <td>
-                <button className='action-btn' >Join</button>
-            </td>
-          </tr>
-        </table>
+                {/* You can add Leave/Join logic based on membership here */}
+                <button className='action-btn'>Join/Leave</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
