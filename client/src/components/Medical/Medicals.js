@@ -1,7 +1,9 @@
+// frontend/src/pages/Medical.js
+
 import React, { useEffect, useState } from "react";
 import "../../assets/CSS/Medicals.css";
 
-// Helper to calculate distance (in km) between two coordinates
+// Helper: calculate distance between two coordinates (km)
 function haversineDistance(lat1, lon1, lat2, lon2) {
   function toRad(x) { return x * Math.PI / 180; }
   const R = 6371;
@@ -14,59 +16,110 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
 }
 
 export const Medicals = () => {
-  const [medicals, setMedicals] = useState([]);
+  const [places, setPlaces] = useState([]);
   const [userLoc, setUserLoc] = useState(null);
+  const [manualLoc, setManualLoc] = useState({ lat: "", lon: "" });
+  const [useManual, setUseManual] = useState(false);
 
+  // 1. Location acquisition: Automatically or manually
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-      pos => setUserLoc([pos.coords.latitude, pos.coords.longitude]),
-      () => setUserLoc([23.7264, 90.3925]) // default: somewhere in Dhaka
-    );
-  }, []);
+    if (useManual) {
+      if (manualLoc.lat && manualLoc.lon) {
+        setUserLoc([parseFloat(manualLoc.lat), parseFloat(manualLoc.lon)]);
+      }
+    } else {
+      navigator.geolocation.getCurrentPosition(
+        pos => setUserLoc([pos.coords.latitude, pos.coords.longitude]),
+        () => setUserLoc([23.7264, 90.3925]) // fallback (Dhaka)
+      );
+    }
+  }, [manualLoc, useManual]);
 
+  // 2. Fetch all places (medical, police stations, shelters, etc.)
   useEffect(() => {
-    // Fetch dynamic medicals from backend API
-    fetch("http://localhost:5000/api/medicals")
+    fetch("http://localhost:5000/api/medicals") // Adjust API if needed
       .then(res => res.json())
-      .then(data => setMedicals(data));
+      .then(data => setPlaces(data));
   }, []);
 
-  let nearest = [];
-  if (userLoc && medicals.length) {
-    nearest = [...medicals];
-    nearest.forEach(m => {
-      m.dist = haversineDistance(userLoc[0], userLoc[1], m.latitude, m.longitude);
+  // 3. Always show ALL sorted places (not just top 5)
+  let sorted = [];
+  if (userLoc && places.length) {
+    sorted = [...places];
+    sorted.forEach(p => {
+      // If lat/lon missing, use huge distance to push it last
+      if (p.latitude && p.longitude) {
+        p.dist = haversineDistance(userLoc[0], userLoc[1], p.latitude, p.longitude);
+      } else {
+        p.dist = 999999;
+      }
     });
-    nearest.sort((a, b) => a.dist - b.dist);
-    nearest = nearest.slice(0, 5); // Top 5
+    sorted.sort((a, b) => a.dist - b.dist);
   }
 
   return (
     <div className="medical-listing">
-      <h1>Nearest Government Hospitals & Shelters</h1>
+      <h1>Nearest Government Hospitals, Shelters, & Police Stations</h1>
+      <div style={{ marginBottom: "1em" }}>
+        <button onClick={() => setUseManual(!useManual)}>
+          {useManual ? "Use automatic location" : "Enter location manually"}
+        </button>
+        {useManual &&
+          <span style={{ marginLeft: "1em" }}>
+            <input
+              type="number"
+              placeholder="Latitude"
+              value={manualLoc.lat}
+              onChange={e => setManualLoc({ ...manualLoc, lat: e.target.value })}
+              style={{ width: 110, marginRight: 6 }}
+            />
+            <input
+              type="number"
+              placeholder="Longitude"
+              value={manualLoc.lon}
+              onChange={e => setManualLoc({ ...manualLoc, lon: e.target.value })}
+              style={{ width: 110 }}
+            />
+          </span>
+        }
+      </div>
       {!userLoc && <p>Detecting your location...</p>}
       <table className="med-table">
         <thead>
           <tr>
-            <th>#</th><th>Name</th><th>Address</th><th>Hotline</th><th>Email</th><th>Type</th><th>Seats</th><th>Distance (km)</th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Hotline</th>
+            <th>Email</th>
+            <th>Type</th>
+            <th>Seats</th>
+            <th>Distance (km)</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          {nearest.map((m, idx) => (
-            <tr key={m._id}>
-              <td>{idx+1}</td>
-              <td>{m.name}</td>
-              <td>{m.address}</td>
-              <td>{m.hotline}</td>
-              <td>{m.email}</td>
-              <td>{m.type}</td>
-              <td>{m.seats}</td>
-              <td>{m.dist.toFixed(2)}</td>
+          {sorted.map((p, idx) => (
+            <tr key={p._id || idx}>
+              <td>{idx + 1}</td>
+              <td>{p.name}</td>
+              <td>{p.address}</td>
+              <td>{p.hotline}</td>
+              <td>{p.email}</td>
+              <td>{p.type}</td>
+              <td>{p.seats}</td>
+              <td>{p.dist !== undefined ? p.dist.toFixed(2) : "N/A"}</td>
+              <td>
+                {p.latitude && p.longitude
+                  ? (<a target="_blank" rel="noopener noreferrer"
+                        href={`https://maps.google.com/?q=${p.latitude},${p.longitude}`}>View map</a>)
+                  : "Not available"}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {nearest.length === 0 && <p>No hospitals or shelters in your area right now.</p>}
+      {sorted.length === 0 && <p>No hospitals, police or shelters found.</p>}
     </div>
   );
 };
