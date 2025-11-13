@@ -26,20 +26,39 @@ export const Incidents = () => {
   const submitIncident = async (e) => {
     e.preventDefault();
     if (!userID) { alert("You must be logged in to report an incident!"); return; }
-    if (!incidentType || (incidentType === "Others" && !otherType) || !incidentDate || !incidentLocation || !incidentDescription || !communityID || !incidentStatus || !urgency) {
+    if (
+      !incidentType ||
+      (incidentType === "Others" && !otherType) ||
+      !incidentDate ||
+      !incidentLocation ||
+      !incidentDescription ||
+      !communityID ||
+      !incidentStatus ||
+      !urgency ||
+      !affected
+    ) {
       alert("All fields are required.");
       return;
     }
+    
+    // Generate a unique ID for IncidentID (backend expects number and unique)
+    const randomIncidentID = Date.now() + Math.floor(Math.random() * 1000);
+
+    // Convert required fields to numbers as per backend schema
     const payload = {
-      UserID: Number(userID),
-      CommunityID: communityID,
+      IncidentID: randomIncidentID,
       IncidentType: incidentType === 'Others' ? otherType : incidentType,
-      Location: incidentLocation,
       Description: incidentDescription,
+      CommunityID: Number(communityID), // backend expects number
+      ReportedBy: Number(userID),       // backend expects number
+      DateReported: new Date(incidentDate),
+      LocationID: undefined,            // backend auto-increments, don't send unless you handle it
       Status: incidentStatus,
       Urgency: urgency,
-      AffectedIndividuals: affected ? Number(affected) : undefined,
-      DateReported: incidentDate
+      ApproximateaffectedCount: Number(affected),
+      Volunteers: [],
+      AffectedIndividual: [],
+      Location: incidentLocation,
     };
 
     try {
@@ -76,7 +95,8 @@ export const Incidents = () => {
           <label className="incident-label">Incident Type</label>
           <select className="incident-input"
             value={incidentType}
-            onChange={e => setIncidentType(e.target.value)}>
+            onChange={e => setIncidentType(e.target.value)}
+            required>
             <option value="Flood">Flood</option>
             <option value="Earthquake">Earthquake</option>
             <option value="Fire">Fire</option>
@@ -118,17 +138,17 @@ export const Incidents = () => {
             required />
         </div>
         <div className="incident-row">
-          <label className="incident-label">Affected Individuals</label>
+          <label className="incident-label">Affected Individuals (estimate)</label>
           <input className="incident-input" type="number" value={affected}
             onChange={e => setAffected(e.target.value)}
             required />
         </div>
         <div className="incident-row">
-          <label className="incident-label">Community ID</label>
-          <input className="incident-input" type="text" value={communityID}
+          <label className="incident-label">Community ID (number)</label>
+          <input className="incident-input" type="number" value={communityID}
             onChange={e => setCommunityID(e.target.value)}
             required
-            placeholder="Eg: Block-A, CollegeZone, etc"
+            placeholder="Eg: 1001"
           />
         </div>
         <div className="incident-row">
