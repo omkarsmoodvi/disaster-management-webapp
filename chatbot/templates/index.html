@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disaster Management Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6fa; }
+        .container { width: 500px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); padding: 24px; }
+        h1 { text-align: center; color: #3d5af1; }
+        .chatbox { min-height: 220px; margin-bottom: 20px; background: #f0f3fa; border-radius: 6px; padding: 16px; overflow-y: auto; }
+        .user { color: #343d55; margin: 12px 0 4px 0; font-weight: bold; }
+        .bot { color: #3d5af1; margin: 4px 0 12px 0; }
+        form { display: flex; }
+        input[type="text"] { flex: 1; padding: 8px 10px; border-radius: 4px; border: 1px solid #bbb; margin-right: 8px; }
+        button { background: #3d5af1; color: #fff; border: none; border-radius: 4px; padding: 8px 22px; cursor: pointer; }
+        button:hover { background: #2538ad; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Disaster Management Chatbot</h1>
+        <div class="chatbox">
+            {% if conversation %}
+                {% for entry in conversation %}
+                    <div class="user">You: {{ entry[0] }}</div>
+                    <div class="bot">Bot: {{ entry[1] }}</div>
+                {% endfor %}
+            {% else %}
+                <div>Ask me anything about disaster management!</div>
+            {% endif %}
+        </div>
+        <form method="post" autocomplete="off">
+            <input type="text" name="user_input" placeholder="Type your question and press Enter..." autocomplete="off" required />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>

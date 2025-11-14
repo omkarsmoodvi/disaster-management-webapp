@@ -1,0 +1,78 @@
+body {
+    background: #f4f6fa;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: 48px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 13px rgba(0,0,0,0.11);
+    padding: 36px 28px 28px 28px;
+}
+.title {
+    text-align: center;
+    color: #3d5af1;
+    font-weight: 700;
+    font-size: 2.2em;
+    margin-bottom: 18px;
+}
+.search-bar {
+    display: flex;
+    margin-bottom: 18px;
+}
+.search-bar input {
+    flex: 1;
+    padding: 11px 16px;
+    border-radius: 7px 0 0 7px;
+    border: 1px solid #d5e1ed;
+    font-size: 1.06em;
+}
+.search-bar button {
+    background: #3d5af1;
+    color: #fff;
+    border: none;
+    border-radius: 0 7px 7px 0;
+    padding: 10px 30px;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+}
+.search-bar button:hover {
+    background: #2539ad;
+}
+.chat-window {
+    background: #f4f6fa;
+    border-radius: 8px;
+    min-height: 240px;
+    padding: 16px;
+    margin-bottom: 18px;
+    overflow-y: auto;
+    box-shadow: 0 0 5px #e7e8ec;
+}
+.user {
+    color: #222;
+    font-weight: bold;
+    margin-top: 18px;
+}
+.bot {
+    background: #e9ecfe;
+    border-radius: 7px;
+    color: #3d5af1;
+    margin: 7px 0 18px 0;
+    padding: 9px 13px;
+    display: inline-block;
+}
+::-webkit-scrollbar {
+    height: 6px;
+    background: #f4f6fa;
+}
+::-webkit-scrollbar-thumb {
+    background: #3d5af135;
+    border-radius: 9px;
+}
+input[type="text"]:focus {
+    outline: 1px solid #3d5af1;
+}
+"
