@@ -23,10 +23,19 @@ export function Incidents() {
   const submitIncident = async (e) => {
     e.preventDefault();
     if (!userID) { alert("You must be logged in to report an incident!"); return; }
-    if (!incidentType || (incidentType === "Others" && !otherType) || !incidentDate || !incidentLocation || !incidentDescription || !incidentStatus || !urgency) {
+    if (
+      !incidentType ||
+      (incidentType === "Others" && !otherType) ||
+      !incidentDate ||
+      !incidentLocation ||
+      !incidentDescription ||
+      !incidentStatus ||
+      !urgency
+    ) {
       alert("All fields are required.");
       return;
     }
+    // Only send minimal required fields per backend schema
     const payload = {
       ReportedBy: Number(userID),
       IncidentType: incidentType,

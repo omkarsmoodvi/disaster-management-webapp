@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, session, redirect, url_for
+from flask_cors import CORS
 import re
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # change for production
-
-from flask_cors import CORS
 CORS(app)
 
 # Disaster Q&A knowledge base (question keywords and their answers)
@@ -27,7 +26,7 @@ def preprocess(text):
 def get_bot_response(user_input):
     user_input_processed = preprocess(user_input)
     for keyword, answer in knowledge_base.items():
-        if re.search(r'\b' + re.escape(keyword) + r'\b', user_input_processed):
+        if re.search(r'\\b' + re.escape(keyword) + r'\\b', user_input_processed):
             return f"{answer} (Information source: Disaster Management FAQs)"
     return fallback_message
 

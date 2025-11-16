@@ -35,7 +35,7 @@ export function Medicals() {
       .catch(() => setError("Unable to load locations from server."));
   }, []);
 
-  // Safer address search (Nominatim)
+  // Address search (Nominatim)
   const handleSearch = async (e) => {
     e.preventDefault();
     setError("");
