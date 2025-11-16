@@ -35,12 +35,13 @@ export function Incidents() {
       alert("All fields are required.");
       return;
     }
-    // Only send minimal required fields per backend schema
+    // Backend schema fix: Location must be included!
     const payload = {
       ReportedBy: Number(userID),
       IncidentType: incidentType,
       CustomType: incidentType === 'Others' ? otherType : "",
       IncidentLocation: incidentLocation,
+      Location: incidentLocation, // Fix: send 'Location' as required
       Description: incidentDescription,
       Status: incidentStatus,
       Urgency: urgency,
