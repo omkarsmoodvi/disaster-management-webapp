@@ -2,16 +2,13 @@ import React, { useState } from 'react';
 import '../assets/CSS/Incidents.css';
 import { useNavigate } from 'react-router-dom';
 
-export const Incidents = () => {
+export function Incidents() {
   const navigate = useNavigate();
-
   const [incidentType, setIncidentType] = useState('Flood');
   const [otherType, setOtherType] = useState('');
   const [incidentDate, setIncidentDate] = useState('');
   const [incidentLocation, setIncidentLocation] = useState('');
   const [incidentDescription, setIncidentDescription] = useState('');
-  const [affected, setAffected] = useState('');
-  const [communityID, setCommunityID] = useState('');
   const [incidentStatus, setIncidentStatus] = useState('Running');
   const [urgency, setUrgency] = useState('High');
 
@@ -26,22 +23,20 @@ export const Incidents = () => {
   const submitIncident = async (e) => {
     e.preventDefault();
     if (!userID) { alert("You must be logged in to report an incident!"); return; }
-    if (!incidentType || (incidentType === "Others" && !otherType) || !incidentDate || !incidentLocation || !incidentDescription || !communityID || !incidentStatus || !urgency) {
+    if (!incidentType || (incidentType === "Others" && !otherType) || !incidentDate || !incidentLocation || !incidentDescription || !incidentStatus || !urgency) {
       alert("All fields are required.");
       return;
     }
     const payload = {
-      UserID: Number(userID),
-      CommunityID: communityID,
-      IncidentType: incidentType === 'Others' ? otherType : incidentType,
-      Location: incidentLocation,
+      ReportedBy: Number(userID),
+      IncidentType: incidentType,
+      CustomType: incidentType === 'Others' ? otherType : "",
+      IncidentLocation: incidentLocation,
       Description: incidentDescription,
       Status: incidentStatus,
       Urgency: urgency,
-      AffectedIndividuals: affected ? Number(affected) : undefined,
       DateReported: incidentDate
     };
-
     try {
       const res = await fetch('http://localhost:5000/api/incidents', {
         method: 'POST',
@@ -52,8 +47,6 @@ export const Incidents = () => {
         alert('Incident reported!');
         setIncidentDescription('');
         setIncidentLocation('');
-        setAffected('');
-        setCommunityID('');
         setIncidentType('Flood');
         setOtherType('');
         setIncidentDate('');
@@ -82,6 +75,8 @@ export const Incidents = () => {
             <option value="Fire">Fire</option>
             <option value="Cyclone">Cyclone</option>
             <option value="Accident">Accident</option>
+            <option value="Medical">Medical</option>
+            <option value="Riot">Riot</option>
             <option value="Others">Others</option>
           </select>
         </div>
@@ -118,27 +113,12 @@ export const Incidents = () => {
             required />
         </div>
         <div className="incident-row">
-          <label className="incident-label">Affected Individuals</label>
-          <input className="incident-input" type="number" value={affected}
-            onChange={e => setAffected(e.target.value)}
-            required />
-        </div>
-        <div className="incident-row">
-          <label className="incident-label">Community ID</label>
-          <input className="incident-input" type="text" value={communityID}
-            onChange={e => setCommunityID(e.target.value)}
-            required
-            placeholder="Eg: Block-A, CollegeZone, etc"
-          />
-        </div>
-        <div className="incident-row">
           <label className="incident-label">Incident Status</label>
           <select className="incident-input"
             value={incidentStatus}
             onChange={e => setIncidentStatus(e.target.value)}>
             <option value="Running">Running</option>
             <option value="Expired">Expired</option>
-            <option value="Resolved">Resolved</option>
           </select>
         </div>
         <div className="incident-row">
@@ -166,4 +146,4 @@ export const Incidents = () => {
       </button>
     </div>
   );
-};
+}

@@ -2,19 +2,18 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Home, Community, MedicalHome } from '../pages';
+import { Home, MedicalHome } from '../pages'; 
 import { Auth } from '../pages/Auth';
 import {
-  Header, Footer, Map, CommunityHome,
-  CommunityForum, CommunityVolunteers,
-  CommunityChat, Communities, Medicals, Incidents
+  Header, Footer, Map, Medicals, Incidents, ImgSlider, Statistics
 } from '../components';
 
 import Announcements from '../pages/Announcements';
 import Donate from '../pages/Donate';
 import IncidentsList from '../components/IncidentsList';
-
-const username = 'Arafat';
+import NavigationDemo from '../pages/NavigationDemo';
+import AdminDashboard from '../pages/AdminDashboard';
+import VerifyPage from '../pages/VerifyPage';
 
 export const AllRoutes = () => {
   const isAdmin = useSelector(state => state.roleState.isAdmin);
@@ -32,26 +31,20 @@ export const AllRoutes = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/map" element={<Map locations={locations} />} />
-        <Route path="/auth" element={<Auth />} >
-          <Route path='login' element={<h1>login</h1>} />
-          <Route path='register' element={<h1>Register</h1>} />
-          <Route path='*' element={<Navigate to='/' />} />
-        </Route>
-        <Route path='/community/:id' element={loggedIn ? <Community /> : <Navigate to="/auth/login" />}>
-          <Route path='' element={<CommunityHome />} />
-          <Route path='chat' element={<CommunityChat />} />
-          <Route path='announcement' element={<CommunityForum />} />
-          <Route path='volunteers' element={<CommunityVolunteers />} />
-          <Route path='*' element={<h1>Access Denied !</h1>} />
-        </Route>
-        <Route path='/communities' element={<Communities />} />
-        <Route path='/incidents' element={<Incidents />} />
-        <Route path='/incidents/list' element={<IncidentsList />} />
-        <Route path='/medicals' element={<Medicals />} />
-        <Route path='/medical/:id' element={<MedicalHome />} />
-        <Route path='/announcements' element={<Announcements />} />
-        <Route path='/donate' element={<Donate />} />
+        <Route path="/map" element={loggedIn ? <Map locations={locations} /> : <Navigate to="/auth/login" />} />
+        <Route path="/navigation" element={loggedIn ? <NavigationDemo /> : <Navigate to="/auth/login" />} />
+        <Route path="/auth/*" element={!loggedIn ? <Auth /> : <Navigate to="/" />} />
+
+        {/* Community-related routes have been fully removed */}
+
+        <Route path='/incidents' element={loggedIn ? <Incidents /> : <Navigate to="/auth/login" />} />
+        <Route path='/incidents/list' element={loggedIn ? <IncidentsList /> : <Navigate to="/auth/login" />} />
+        <Route path='/medicals' element={loggedIn ? <Medicals /> : <Navigate to="/auth/login" />} />
+        <Route path='/medical/:id' element={loggedIn ? <MedicalHome /> : <Navigate to="/auth/login" />} />
+        <Route path='/announcements' element={loggedIn ? <Announcements /> : <Navigate to="/auth/login" />} />
+        <Route path='/donate' element={loggedIn ? <Donate /> : <Navigate to="/auth/login" />} />
+        <Route path='/admin' element={isAdmin && loggedIn ? <AdminDashboard /> : <Navigate to="/auth/login" />} />
+        <Route path='/verify/:token' element={<VerifyPage />} />
         <Route path='*' element={<h1>404 ! Page Not Found</h1>} />
       </Routes>
       <Footer />

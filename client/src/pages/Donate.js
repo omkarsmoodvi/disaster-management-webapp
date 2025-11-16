@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 const DONATE_ACCOUNT = "UPI: dmsrelief2025@upi (PayTM/PhonePe/GooglePay)\nBank A/C: 1234567890, IFSC: SBIN0001234";
 
 function Donate() {
+  const isAdmin = useSelector(state => state.roleState.isAdmin);
   const [donations, setDonations] = useState([]);
   const [type, setType] = useState('');
   const [item, setItem] = useState('');
@@ -56,10 +58,14 @@ function Donate() {
     }
   };
 
-  // Edit/Delete Features
+  // Admin-only Edit/Delete
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this donation?")) return;
-    const res = await fetch(`http://localhost:5000/api/donations/${id}`, { method: "DELETE" });
+    const token = localStorage.getItem('token');
+    const res = await fetch(`http://localhost:5000/api/donations/${id}`, { 
+      method: "DELETE",
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
     if (res.ok) setDonations(donations.filter(d => d._id !== id));
     else alert("Failed to delete.");
   };
@@ -71,9 +77,13 @@ function Donate() {
     const update = {};
     if (usage) update.usage = usage;
     if (quantity) update.quantity = quantity;
+    const token = localStorage.getItem('token');
     const res = await fetch(`http://localhost:5000/api/donations/${id}`, {
       method: "PATCH",
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(update)
     });
     if (res.ok) {
@@ -82,8 +92,6 @@ function Donate() {
       alert("Failed to update.");
     }
   };
-
-  // ------- RENDER --------
 
   return (
     <div style={{margin: "34px"}}>
@@ -163,7 +171,7 @@ function Donate() {
             <th>Transaction/Ref</th>
             <th>Proof</th>
             <th>Status/Usage</th>
-            <th>Action</th>
+            {isAdmin && <th>Action</th>}
           </tr>
         </thead>
         <tbody>
@@ -180,10 +188,12 @@ function Donate() {
                   : ""}
               </td>
               <td>{d.usage}</td>
-              <td>
-                <button onClick={() => handleEdit(d._id)}>Edit</button>
-                <button onClick={() => handleDelete(d._id)}>Delete</button>
-              </td>
+              {isAdmin && (
+                <td>
+                  <button onClick={() => handleEdit(d._id)}>Edit</button>
+                  <button onClick={() => handleDelete(d._id)}>Delete</button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -1,10 +1,11 @@
-import React from 'react'
-import { Link} from 'react-router-dom'
+import React from 'react';
 
-export const MedicalHome = () => {
+const MedicalHome = () => {
   return (
     <>
-        <h1> Welcome to Medical Home page </h1>
+      <h1> Welcome to Medical Home page </h1>
     </>
-  )
-}
+  );
+};
+
+export default MedicalHome;

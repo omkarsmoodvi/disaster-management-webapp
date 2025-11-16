@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/CSS/Statistics.css';
 
-const Statistics = () => {
+export function Statistics() {
   const [incidentCount, setIncidentCount] = useState(0);
-  // You can add similar hooks and counts for communities, donations etc if your API returns them.
   
   useEffect(() => {
     fetch("http://localhost:5000/api/incidents")
@@ -20,7 +19,6 @@ const Statistics = () => {
             <p className="lead">Incidents Registered</p>
           </div>
         </div>
-
         <div className="col-md-6 col-lg-3 mb-4 mb-lg-0" id='Com'>
           <div className="box bg-danger p-3">
             <h3>-</h3>
@@ -55,5 +53,3 @@ const Statistics = () => {
     </section>
   )
 }
-
-export { Statistics };

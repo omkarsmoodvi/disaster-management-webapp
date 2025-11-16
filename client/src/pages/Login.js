@@ -20,7 +20,7 @@ const Login = () => {
         }
 
         try {
-            const res = await fetch("http://localhost:5000/auth/login", {
+            const res = await fetch("http://localhost:5000/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ Email: email, Password: password })
@@ -68,7 +68,7 @@ const Login = () => {
                         onChange={e => setPassword(e.target.value)}
                     />
                 </div>
-                {errorMsg && <div className="loginError">{errorMsg}</div>}
+                {errorMsg && <div className="loginError" style={{color: 'red', marginTop: '1rem'}}>{errorMsg}</div>}
                 <div className="loginButton">
                     <button type="submit">Log In</button>
                 </div>

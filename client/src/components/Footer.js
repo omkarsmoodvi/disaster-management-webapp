@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 import Logo from '../assets/images/dms-logo-transparent.png';
 import '../assets/CSS/Footer.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const Footer = () => {
+export function Footer() {
   const loggedIn = useSelector(state => state.roleState.loggedIn);
   return (
     <footer className="footer">
@@ -31,7 +31,6 @@ const Footer = () => {
                 <td>
                       <a href='mailto:arafatrahman219@gmail.com'>Mail us</a>
                 </td>
-
             </tr>
             <tr>
                 <td>
@@ -41,7 +40,6 @@ const Footer = () => {
                   <Link to="/guidelines">Guidelines</Link>
                 </td>
                 <td></td>
-
             </tr>
             <tr>
                 <td>
@@ -49,7 +47,6 @@ const Footer = () => {
                 </td>
                 <td><Link to="/announcements">Announcements</Link></td>
                 <td></td>
-
             </tr>
             {
               loggedIn &&
@@ -57,13 +54,10 @@ const Footer = () => {
             }
           </tbody>
         </table>
-
         <div className="footer-copy">
           <p>&copy; DMS. All rights reserved.</p>
         </div>
       </div>
     </footer>
   );
-};
-
-export { Footer};
+}

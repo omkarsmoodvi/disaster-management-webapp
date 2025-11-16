@@ -5,10 +5,8 @@ import {useState} from 'react';
 
 export const Auth=()=>{
     let [login,setlogin]=useState(true);
-    console.log(login);
 
     function logForm(){
-        console.log("hi from logForm");
         setlogin(true);
     } 
 
@@ -22,7 +20,7 @@ export const Auth=()=>{
                 <button className="AuthLoginButton" onClick={logForm}>Login</button>
                 <button className="AuthRegisterButton" onClick={regForm}>Register</button>
             </div>
-            {login? <Login/>:<Register/>}
+            {login ? <Login/> : <Register/>}
         </>
     )
 }

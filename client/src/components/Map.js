@@ -1,6 +1,5 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-
 import '../assets/CSS/Map.css';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -8,20 +7,15 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-
-// Fix the default icon issue
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-    iconRetinaUrl,
-    iconUrl,
-    shadowUrl
-  });
-  
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl
+});
 
-
-const Map = ({locations, longitude, latitude,defaultZoom }) => {
-  const defaultPosition  = [longitude, latitude]; // Default position [latitude, longitude]
-
+export function Map({locations, longitude, latitude, defaultZoom }) {
+  const defaultPosition = [longitude, latitude];
   return (
     <div className='map-container'>
       <MapContainer center={defaultPosition} zoom={defaultZoom} style={{ height: "100%", width: "100%" }}>
@@ -40,6 +34,3 @@ const Map = ({locations, longitude, latitude,defaultZoom }) => {
     </div>
   );
 }
-
-
-export {Map};

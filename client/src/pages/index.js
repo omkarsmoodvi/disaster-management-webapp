@@ -1,5 +1,4 @@
-import Home from './Home';
-import Community from './Community';
-import { MedicalHome } from './MedicalHome';
+import Home from "./Home";
+import MedicalHome from "./MedicalHome"; // Corrected path: not in /Medical/
 
-export { Home, Community, MedicalHome };
+export { Home, MedicalHome };
