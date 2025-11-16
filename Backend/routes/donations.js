@@ -4,6 +4,7 @@ const Donation = require('../models/Donation');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const adminOnly = require('../middleware/authAdmin');
 
 // Ensure uploads/proofs directory exists
 const proofsDir = path.join(__dirname, '../../uploads/proofs');
@@ -30,7 +31,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Add a new donation: works with OR without file upload
+// Add a new donation (works with OR without file upload)
 router.post('/', (req, res, next) => {
   if (req.headers['content-type'] && req.headers['content-type'].includes('multipart/form-data')) {
     upload.single('proofImage')(req, res, function (err) {
@@ -63,8 +64,8 @@ router.post('/', (req, res, next) => {
 // Serve uploaded proof images statically
 router.use('/proofs', express.static(proofsDir));
 
-// Edit (update) a donation by ID, supports multiple fields (usage, quantity, item, transactionId)
-router.patch('/:id', async (req, res) => {
+// Edit (update) a donation by ID -- ADMIN ONLY
+router.patch('/:id', adminOnly, async (req, res) => {
   try {
     const update = {};
     if (req.body.usage !== undefined) update.usage = req.body.usage;
@@ -78,8 +79,8 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-// Delete a donation by ID
-router.delete('/:id', async (req, res) => {
+// Delete a donation by ID -- ADMIN ONLY
+router.delete('/:id', adminOnly, async (req, res) => {
   try {
     await Donation.findByIdAndDelete(req.params.id);
     res.json({ message: "Donation deleted" });
