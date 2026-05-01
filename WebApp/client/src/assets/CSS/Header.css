@@ -1,0 +1,114 @@
+/* HEADER BAR: sticky to the left, top, and removes all default spacing */
+.dms-header {
+  width: 100vw;                /* Full viewport width - fills left/right */
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+  padding: 0;                  /* Remove default padding */
+  margin: 0;                   /* Remove default margin */
+  border-radius: 0;            /* Remove border-radius if any */
+  box-shadow: none;            /* Remove shadow if any */
+  position: relative;          /* Default - can set fixed/sticky if needed */
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+
+/* The container for logo+title+links */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;     /* Adjust space between logo/title/nav */
+  margin: 0 0 0 2vw; /* Left margin for logo (change 2vw if you need even tighter) */
+  padding: 0;       /* No padding at left */
+}
+
+.dms-logo-text {
+  font-size: 1.35rem;        /* Logo size, change as needed */
+  font-weight: 900;
+  color: #fff;
+  margin-right: 1rem;
+  letter-spacing: 1px;
+}
+
+.dms-title {
+  font-size: 1.40rem;        /* Title size */
+  font-weight: 800;
+  color: #b17edc;
+  letter-spacing: 1px;
+  margin-right: 1.2rem;
+}
+.dms-title span {
+  color: #a985d0;
+}
+
+/* NAVBAR LINKS: horizontal row, left of header */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;     /* Space between each link */
+}
+
+.nav-link {
+  color: #fff;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;   /* size of each nav tab */
+  border-radius: 3px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-link:hover {
+  background: #222;
+  color: #ffde59;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-right: 2vw; /* Right edge spacing for logout button */
+}
+
+.auth-link {
+  color: #fff;
+  background: #7d6ee6;
+  padding: 0.32rem 0.8rem;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 3px;
+  font-size: 0.97rem;
+  transition: background 0.2s;
+}
+.auth-link:hover {
+  background: #a585e0;
+}
+
+.logout-btn {
+  margin-left: 0.9rem;
+  background: #444;
+  color: #fff;
+  padding: 0.32rem 1rem;
+  border-radius: 3.5px;
+  border: none;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.logout-btn:hover, .logout-btn:focus {
+  background: #fa4769;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .dms-header { min-height: 44px; }
+  .dms-title { font-size: 1.08rem; margin-right: 0.45rem; }
+  .navbar-links, .nav-right { gap: 0.3rem; }
+  .nav-left { margin-left: 1vw; }
+  .nav-right { margin-right: 1vw; }
+}
+
+

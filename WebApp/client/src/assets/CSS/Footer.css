@@ -1,0 +1,119 @@
+/* ---- MAIN FOOTER CONTAINER ----
+   Set max-height for 3cm, minimize padding, font, and logo size to fit all contents.
+*/
+.footer {
+  background-color: #2c3e50;
+  color: white;
+  max-height: 3cm;          /* NEW: limit total footer height to 3cm */
+  min-height: 2.1cm;        /* Prevents excessive squashing */
+  padding: 4px 0 4px 0;     /* Extra small vertical padding top/bottom */
+  width: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.83rem;       /* Smaller base font size */
+  overflow: hidden;
+}
+
+/* ---- PAGE-CONTAINER ----
+   Even more compressed, zero left margin/padding.
+*/
+.container {
+  align-items: center;
+  width: 99%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ---- LOGO ----
+   Shrink logo for tight space.
+*/
+.footer-logo img {
+  max-width: 68px;         /* Even smaller logo (~0.9 cm tall if in aspect) */
+  height: 22px;
+  margin-bottom: 1px;
+}
+
+/* ---- LOGO TEXT ---- */
+.footer-logo-text {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;          /* Smaller, fits in compressed header */
+  font-weight: bold;
+}
+
+/* ---- TABLE-BASED LINK STRUCTURE ---- */
+.footer-table {
+  width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+  text-align: center;
+  background-color: transparent;
+}
+
+.footer-table tr {
+  border: none;
+  background-color: transparent;
+}
+
+.footer-table td {
+  border: none;
+  padding: 1.5px 3px;       /* Tightest padding practical */
+  width: 18%;
+  background-color: transparent;
+  font-size: 0.85rem;       /* Smaller text */
+}
+
+.footer-head {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+/* ---- TABLE LINKS ---- */
+.footer-table a {
+  color: #7dfff4;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  font-size: 0.92rem;
+}
+.footer-table a:hover {
+  color: #f9a826;
+}
+
+/* ---- COPYRIGHT/NOTE ---- */
+.footer-copy {
+  text-align: center;
+  width: 100%;
+  margin-top: 1px;         /* Just a sliver of gap */
+  font-size: 0.75rem;      /* Very small copyright */
+}
+
+/* ---- RESPONSIVE: Phones get even smaller ---- */
+@media (max-width: 700px) {
+  .footer {
+    font-size: 0.69rem;
+    padding: 2px 0;
+    min-height: 1.6cm;
+    max-height: 3cm;
+  }
+  .footer-logo img {
+    max-width: 43px;
+    height: 15px;
+  }
+  .container {
+    width: 99.5%;
+    padding: 0;
+  }
+  .footer-table td {
+    width: 29%;
+    padding: 1px 1px;
+    font-size: 0.75rem;
+  }
+}
+

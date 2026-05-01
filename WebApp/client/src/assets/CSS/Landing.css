@@ -1,0 +1,40 @@
+.landing-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #e6eafe;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-main {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 3.6rem;
+  min-height: 65vh;
+}
+
+.neon-title {
+  font-size: 2.7rem;
+  letter-spacing: 3px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(112deg, #04ffd2 80%, #1157ff 130%);
+  border-radius: 35px;
+  box-shadow: 0 0 28px #00fff6cc, 0 0 14px #1157ff88;
+  padding: .6rem 2.8rem .6rem 2.8rem;
+  margin-bottom: 2.3rem;
+  text-shadow: 0 0 14px #04ffd2bb, 0 0 6px #1157ff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .landing-main { margin-top: 2.2rem; }
+  .neon-title { font-size: 2.1rem; padding-left: 1.3rem; padding-right: 1.3rem; }
+}
+
+@media (max-width: 600px) {
+  .neon-title { font-size: 1.1rem; }
+}

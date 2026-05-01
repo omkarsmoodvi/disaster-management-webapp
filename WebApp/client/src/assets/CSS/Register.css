@@ -1,0 +1,95 @@
+.register-bg {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  /* No background-image or background here! */
+}
+
+.register-card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 80vh;
+}
+
+.register-card {
+  background: #e1d3d3;
+  border-radius: 16px;
+  min-width: 270px;
+  max-width: 350px;
+  box-shadow: 0 4px 22px #18467725;
+  padding: 2.1rem 2.2rem 2.2rem 2.2rem;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.register-title {
+  font-family: cursive;
+  font-weight: 800;
+  font-size: 2.0rem;
+  color: #184677;
+  margin-bottom: 15px;
+  margin-top: 0rem;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.register-input {
+  width: 90%;
+  padding: 0.83rem 1rem;
+  border: 1px solid #e4e4e4;
+  border-radius: 7px;
+  font-size: 1.12rem;
+  background: #f3f8fa;
+  color: #184677;
+  outline: none;
+  margin-bottom: 6px;
+  transition: border 0.15s;
+}
+.register-input:focus {
+  border-color: #69f0ae;
+}
+
+.register-error {
+  color: #D8000C;
+  background: #FFD2D2;
+  border-radius: 7px;
+  padding: 0.45rem 1.2rem;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.register-success {
+  color: #246805;
+  background: #d8ffbb;
+  border-radius: 7px;
+  padding: 0.49rem 1.2rem;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  margin-top: 6px;
+  text-align: center;
+}
+
+.register-gradient-btn {
+  width: 100%;
+  padding: 0.94rem;
+  background: linear-gradient(90deg,#FFD600,#027aff);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  cursor: pointer;
+  margin-top: 17px;
+  letter-spacing: 1px;
+  box-shadow: 0 1px 6px #027aff24;
+}
+.register-gradient-btn:hover {
+  opacity: 0.93;
+}

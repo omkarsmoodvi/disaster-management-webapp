@@ -1,0 +1,21 @@
+# Node
+node_modules/
+.env
+
+# Python
+__pycache__/
+venv/
+
+# Data/uploads
+uploads/
+data/
+
+# IDE/OS
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Don’t forget:
+Backend/.env
+Backend/node_modules/
+*.log
